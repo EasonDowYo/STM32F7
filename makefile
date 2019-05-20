@@ -1,13 +1,14 @@
 CROSS-COMPILER = arm-none-eabi-
-
+CFGR = gcc -std=c11 -Wall -mcpu=cortex-m7 -mthumb -nostartfiles
+FILES = main.c blink.c startup.c vector_table.s
 all: main.bin
 
-main.bin: main.c GPIO.c  vector_table.s
-	$(CROSS-COMPILER)gcc -Wall -std=c11 -mcpu=cortex-m4 -mthumb -nostartfiles -T stm32f4.ld main.c GPIO.c vector_table.s -o main.elf
+main.bin: $(FILES)
+	$(CROSS-COMPILER)$(CFGR) -T stm32f7.ld $(FILES) -o main.elf
 	$(CROSS-COMPILER)objcopy -O binary main.elf main.bin
 
 flash:
-	st-flash --reset write main.bin 0x8000000
+	st-flash --reset write main.bin 0x08000000
 
 clean:
 	rm -f *.o *.elf *.bin

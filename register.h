@@ -19,6 +19,10 @@
 #define GPIO_EN_BIT(port) (port)
 
 
+
+
+
+//GPIO register
 #define GPIO_BASE(port) (0x40020000 + 0x400 * (port))
 
 
