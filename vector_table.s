@@ -645,7 +645,7 @@
 .weak	fpu_handler
 .thumb_set	fpu_handler,default_handler
 .word fpu_handler
-
+/*stm32f7 more than IRQ81 */
 //////////////////////////////////////////////////////////
 
 .syntax unified

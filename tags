@@ -1,0 +1,199 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AF	stm32f7_GPIO.h	9;"	d
+Align	malloc.c	/^typedef long Align;$/;"	t	file:
+BLINK_H	blink.h	2;"	d
+BRy_BIT	reg.h	91;"	d
+BRy_BIT	register.h	45;"	d
+BRy_BIT	stm32f7_GPIO.h	72;"	d
+BSy_BIT	reg.h	92;"	d
+BSy_BIT	register.h	46;"	d
+BSy_BIT	stm32f7_GPIO.h	73;"	d
+CLEAR_BIT	reg.h	14;"	d
+CLEAR_BIT	register.h	13;"	d
+CLEAR_MASK	reg.h	10;"	d
+DRead	stm32f7_GPIO.h	/^    GPIOvalue DRead;$/;"	m	struct:GPIO
+DRead_imp	stm32f7_GPIO.c	/^int DRead_imp(GPIOtype *self){$/;"	f
+EXTI0_0_BIT	reg.h	111;"	d
+EXTI0_3_BIT	reg.h	110;"	d
+EXTI_BASE	reg.h	95;"	d
+EXTI_FTSR_OFFSET	reg.h	101;"	d
+EXTI_IMR_OFFSET	reg.h	97;"	d
+EXTI_PR_OFFSET	reg.h	103;"	d
+EXTI_RTSR_OFFSET	reg.h	99;"	d
+FLASH_ACR_OFFSET	reg.h	21;"	d
+FLASH_BASE	reg.h	19;"	d
+GPIO	stm32f7_GPIO.h	/^struct GPIO{$/;"	s
+GPIO_BASE	reg.h	73;"	d
+GPIO_BASE	register.h	26;"	d
+GPIO_BASE	stm32f7_GPIO.h	53;"	d
+GPIO_EN_BIT	reg.h	62;"	d
+GPIO_EN_BIT	register.h	19;"	d
+GPIO_EN_BIT	stm32f7_GPIO.h	50;"	d
+GPIO_H	stm32f7_GPIO.h	2;"	d
+GPIO_PORTA	reg.h	68;"	d
+GPIO_PORTA	stm32f7_GPIO.h	38;"	d
+GPIO_PORTB	reg.h	69;"	d
+GPIO_PORTB	stm32f7_GPIO.h	39;"	d
+GPIO_PORTC	reg.h	70;"	d
+GPIO_PORTC	stm32f7_GPIO.h	40;"	d
+GPIO_PORTD	reg.h	71;"	d
+GPIO_PORTD	stm32f7_GPIO.h	41;"	d
+GPIO_PORTE	stm32f7_GPIO.h	42;"	d
+GPIO_PORTF	stm32f7_GPIO.h	43;"	d
+GPIO_PORTG	stm32f7_GPIO.h	44;"	d
+GPIO_PORTH	stm32f7_GPIO.h	45;"	d
+GPIO_PORTI	stm32f7_GPIO.h	46;"	d
+GPIO_PORTJ	stm32f7_GPIO.h	47;"	d
+GPIO_PORTK	stm32f7_GPIO.h	48;"	d
+GPIO_onoff	stm32f7_GPIO.h	/^	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;$/;"	m	struct:GPIO
+GPIO_onoff_imp	stm32f7_GPIO.c	/^void GPIO_onoff_imp(GPIOtype *self){$/;"	f
+GPIOfunc	stm32f7_GPIO.h	/^typedef void (*GPIOfunc)(GPIOtype *self);$/;"	t
+GPIOtype	stm32f7_GPIO.h	/^typedef struct GPIO GPIOtype;$/;"	t	typeref:struct:GPIO
+GPIOvalue	stm32f7_GPIO.h	/^typedef int (*GPIOvalue)(GPIOtype *self);$/;"	t
+GPIOx_BSRR_OFFSET	reg.h	90;"	d
+GPIOx_BSRR_OFFSET	register.h	44;"	d
+GPIOx_BSRR_OFFSET	stm32f7_GPIO.h	71;"	d
+GPIOx_IDR_OFFSET	stm32f7_GPIO.h	75;"	d
+GPIOx_MODER_OFFSET	reg.h	75;"	d
+GPIOx_MODER_OFFSET	register.h	29;"	d
+GPIOx_MODER_OFFSET	stm32f7_GPIO.h	56;"	d
+GPIOx_OSPEEDR_OFFSET	reg.h	82;"	d
+GPIOx_OSPEEDR_OFFSET	register.h	36;"	d
+GPIOx_OSPEEDR_OFFSET	stm32f7_GPIO.h	63;"	d
+GPIOx_OTYPER_OFFSET	reg.h	79;"	d
+GPIOx_OTYPER_OFFSET	register.h	33;"	d
+GPIOx_OTYPER_OFFSET	stm32f7_GPIO.h	60;"	d
+GPIOx_PUPDR_OFFSET	reg.h	86;"	d
+GPIOx_PUPDR_OFFSET	register.h	40;"	d
+GPIOx_PUPDR_OFFSET	stm32f7_GPIO.h	67;"	d
+HIGH	stm32f7_GPIO.h	18;"	d
+HSEON_BIT	reg.h	33;"	d
+HSERDY_BIT	reg.h	32;"	d
+Header	malloc.c	/^typedef union header Header;$/;"	t	typeref:union:header	file:
+IDRy_BIT	stm32f7_GPIO.h	76;"	d
+INPUT	stm32f7_GPIO.h	10;"	d
+IOA	stm32f7_GPIO.h	11;"	d
+IO_config	stm32f7_GPIO.h	/^	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;$/;"	m	struct:GPIO
+IO_config_imp	stm32f7_GPIO.c	/^void IO_config_imp(GPIOtype *self){$/;"	f
+LATENCY_0_BIT	reg.h	24;"	d
+LATENCY_2_BIT	reg.h	23;"	d
+LED_BLUE	blink.h	7;"	d
+LED_GREEN	blink.h	4;"	d
+LED_ORANGE	blink.h	5;"	d
+LED_RED	blink.h	6;"	d
+LOW	stm32f7_GPIO.h	16;"	d
+MAX_HEAPS	malloc.h	4;"	d
+MCO2PRE_0_BIT	reg.h	53;"	d
+MCO2PRE_2_BIT	reg.h	52;"	d
+MCO2_0_BIT	reg.h	50;"	d
+MCO2_1_BIT	reg.h	49;"	d
+MEDIUM	stm32f7_GPIO.h	17;"	d
+MODERy_0_BIT	reg.h	77;"	d
+MODERy_0_BIT	register.h	31;"	d
+MODERy_0_BIT	stm32f7_GPIO.h	58;"	d
+MODERy_1_BIT	reg.h	76;"	d
+MODERy_1_BIT	register.h	30;"	d
+MODERy_1_BIT	stm32f7_GPIO.h	57;"	d
+NULL	stm32f7_GPIO.h	4;"	d
+NVIC_ISER_BASE	reg.h	114;"	d
+NVIC_ISERn_OFFSET	reg.h	116;"	d
+OD	stm32f7_GPIO.h	14;"	d
+OSPEEDRy_0_BIT	reg.h	84;"	d
+OSPEEDRy_0_BIT	register.h	38;"	d
+OSPEEDRy_0_BIT	stm32f7_GPIO.h	65;"	d
+OSPEEDRy_1_BIT	reg.h	83;"	d
+OSPEEDRy_1_BIT	register.h	37;"	d
+OSPEEDRy_1_BIT	stm32f7_GPIO.h	64;"	d
+OTy_BIT	reg.h	80;"	d
+OTy_BIT	register.h	34;"	d
+OTy_BIT	stm32f7_GPIO.h	61;"	d
+OUTPUT	stm32f7_GPIO.h	8;"	d
+PD	stm32f7_GPIO.h	23;"	d
+PLLM_0_BIT	reg.h	46;"	d
+PLLM_5_BIT	reg.h	45;"	d
+PLLN_0_BIT	reg.h	43;"	d
+PLLN_8_BIT	reg.h	42;"	d
+PLLON_BIT	reg.h	31;"	d
+PLLP_0_BIT	reg.h	40;"	d
+PLLP_1_BIT	reg.h	39;"	d
+PLLRDY_BIT	reg.h	30;"	d
+PLLSRC_BIT	reg.h	37;"	d
+PP	stm32f7_GPIO.h	13;"	d
+PRFTEN_BIT	reg.h	22;"	d
+PU	stm32f7_GPIO.h	22;"	d
+PUPDRy_0_BIT	reg.h	88;"	d
+PUPDRy_0_BIT	register.h	42;"	d
+PUPDRy_0_BIT	stm32f7_GPIO.h	69;"	d
+PUPDRy_1_BIT	reg.h	87;"	d
+PUPDRy_1_BIT	register.h	41;"	d
+PUPDRy_1_BIT	stm32f7_GPIO.h	68;"	d
+RCC_AHB1ENR_OFFSET	reg.h	61;"	d
+RCC_AHB1ENR_OFFSET	register.h	18;"	d
+RCC_AHB1ENR_OFFSET	stm32f7_GPIO.h	35;"	d
+RCC_APB2ENR_OFFSET	reg.h	64;"	d
+RCC_BASE	reg.h	27;"	d
+RCC_BASE	register.h	16;"	d
+RCC_BASE	stm32f7_GPIO.h	33;"	d
+RCC_CFGR_OFFSET	reg.h	48;"	d
+RCC_CR_OFFSET	reg.h	29;"	d
+RCC_PLLCFGR_OFFSET	reg.h	35;"	d
+READ_BIT	reg.h	16;"	d
+REG	reg.h	8;"	d
+REG	register.h	10;"	d
+REGISTER_H	register.h	2;"	d
+REG_H	reg.h	2;"	d
+RESERVED	stm32f7_GPIO.h	24;"	d
+SET_BIT	reg.h	13;"	d
+SET_BIT	register.h	12;"	d
+SWS_0_BIT	reg.h	56;"	d
+SWS_1_BIT	reg.h	55;"	d
+SW_0_BIT	reg.h	59;"	d
+SW_1_BIT	reg.h	58;"	d
+SYSCFG_BASE	reg.h	106;"	d
+SYSCFG_EN_BIT	reg.h	65;"	d
+SYSCFG_EXTICR1_OFFSET	reg.h	108;"	d
+TEST_LED	stm32f7_GPIO.h	30;"	d
+UINT32_1	reg.h	6;"	d
+UINT32_1	register.h	8;"	d
+VERY_HIGH	stm32f7_GPIO.h	19;"	d
+WRITE_BITS	reg.h	11;"	d
+__MALLOC_H_	malloc.h	2;"	d
+base	malloc.c	/^static Header base; \/* empty list to get started *\/$/;"	v	file:
+blink	blink.c	/^void blink(unsigned int led)$/;"	f
+blink	stm32f7_GPIO.h	/^	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;$/;"	m	struct:GPIO
+blink_count	blink.c	/^void blink_count(unsigned int led, unsigned int count)$/;"	f
+blink_ct	stm32f7_GPIO.h	/^	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;$/;"	m	struct:GPIO
+blink_ct_imp	stm32f7_GPIO.c	/^void blink_ct_imp(GPIOtype *self){$/;"	f
+blink_imp	stm32f7_GPIO.c	/^void blink_imp(GPIOtype *self){$/;"	f
+exti0_handler	main.c	/^void exti0_handler(void)$/;"	f
+free	malloc.c	/^void free(void *ap)$/;"	f
+freep	malloc.c	/^static Header *freep = NULL; \/* start of free list *\/$/;"	v	file:
+hardfault_handler	startup.c	/^void hardfault_handler(void)$/;"	f
+header	malloc.c	/^union header {$/;"	u	file:
+heaps	malloc.c	/^static unsigned char heaps[MAX_HEAPS];$/;"	v	file:
+init_GPIO	stm32f7_GPIO.c	/^int init_GPIO(GPIOtype **self){$/;"	f
+led_init	blink.c	/^void led_init(unsigned int led)$/;"	f
+main	main.c	/^int main(void)$/;"	f
+malloc	malloc.c	/^void *malloc(unsigned int nbytes)$/;"	f
+mode	stm32f7_GPIO.h	/^    int mode , otyper , ospeed , pupd;$/;"	m	struct:GPIO
+none_PUPD	stm32f7_GPIO.h	21;"	d
+onoff	stm32f7_GPIO.h	/^	int port , pin , onoff;$/;"	m	struct:GPIO
+ospeed	stm32f7_GPIO.h	/^    int mode , otyper , ospeed , pupd;$/;"	m	struct:GPIO
+otyper	stm32f7_GPIO.h	/^    int mode , otyper , ospeed , pupd;$/;"	m	struct:GPIO
+pin	stm32f7_GPIO.h	/^	int port , pin , onoff;$/;"	m	struct:GPIO
+port	stm32f7_GPIO.h	/^	int port , pin , onoff;$/;"	m	struct:GPIO
+program_break	malloc.c	/^static unsigned char *program_break = heaps;$/;"	v	file:
+ptr	malloc.c	/^		union header *ptr;$/;"	m	struct:header::__anon1	typeref:union:header::__anon1::header	file:
+pupd	stm32f7_GPIO.h	/^    int mode , otyper , ospeed , pupd;$/;"	m	struct:GPIO
+reset_handler	startup.c	/^void reset_handler(void)$/;"	f
+s	malloc.c	/^	} s;$/;"	m	union:header	typeref:struct:header::__anon1	file:
+sbrk	malloc.c	/^static void *sbrk(unsigned int nbytes)$/;"	f	file:
+set_sysclk_pll	startup.c	/^void set_sysclk_pll(void)$/;"	f
+size	malloc.c	/^		unsigned int size;$/;"	m	struct:header::__anon1	file:
+userButtom	stm32f7_GPIO.h	27;"	d
+x	malloc.c	/^	Align x;$/;"	m	union:header	file:

@@ -3,7 +3,11 @@
 #include "blink.h"
 
 int main(void)
+
 {
+    
+    
+    
 	//RCC Enable GPIOA
 	SET_BIT(RCC_BASE + RCC_AHB1ENR_OFFSET,GPIO_EN_BIT(GPIO_PORTA));
 

@@ -1,6 +1,6 @@
 CROSS-COMPILER = arm-none-eabi-
 CFGR = gcc -std=c11 -Wall -mcpu=cortex-m7 -mthumb -nostartfiles
-FILES = main.c blink.c startup.c vector_table.s
+FILES = main.c blink.c startup.c vector_table.s stm32f7_GPIO.c
 all: main.bin
 
 main.bin: $(FILES)

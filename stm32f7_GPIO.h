@@ -1,6 +1,9 @@
 #ifndef GPIO_H
 #define GPIO_H
 
+#define NULL ((void *)0)
+
+
 // GPIO moder
 #define OUTPUT 1
 #define AF 2
@@ -65,7 +68,7 @@
 #define PUPDRy_1_BIT(y) ((y)*2 + 1)
 #define PUPDRy_0_BIT(y) ((y)*2)
 
-#define GPIOx_BSRR_OFFSET 0x08
+#define GPIOx_BSRR_OFFSET 0x18
 #define BRy_BIT(y) ((y) + 16)
 #define BSy_BIT(y) (y)
 
@@ -76,16 +79,16 @@ typedef struct GPIO GPIOtype;
 typedef void (*GPIOfunc)(GPIOtype *self);
 typedef int (*GPIOvalue)(GPIOtype *self);
 struct GPIO{
-	int port , pin , onoff;
-    int mode , otyper , ospeed , pupd;
-	GPIOfunc IO_config,GPIO_onoff,blink_ct;
-    GPIOvalue DRead
+	uint32_t port , pin , onoff;
+    uint32_t mode , otyper , ospeed , pupd;
+	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;
+    GPIOvalue DRead;
 };
-void _init_GPIO(GPIOtype **self);
+int init_GPIO(GPIOtype **self);
 
-void IO_config(GPIOtype *self);//method
+void IO_config_imp(GPIOtype *self);//method
 
-void GPIO_onoff(GPIOtype *self);//method
+void GPIO_onoff_imp(GPIOtype *self);//method
 
 void blink_ct_imp(GPIOtype *self);//method
 

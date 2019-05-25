@@ -3,6 +3,9 @@
 
 
 
+
+
+/////      sysclk register     /////
 //FLASH
 #define FLASH_BASE 0x40023C00
 
@@ -14,7 +17,7 @@
 //RCC
 #define RCC_BASE 0x40023800
 
-#define RCC_CR_OFFSET 0x00  //check
+#define RCC_CR_OFFSET 0x00
 
 #define PLLRDY_BIT 25
 #define PLLON_BIT 24
@@ -34,7 +37,7 @@
 #define PLLM_5_BIT 5
 #define PLLM_0_BIT 0
 
-#define RCC_CFGR_OFFSET 0x08
+#define RCC_CFGR_OFFSET 0x08   //p165
 #define MCO2_1_BIT 31
 #define MCO2_0_BIT 30
 
@@ -47,20 +50,54 @@
 #define SW_1_BIT 1
 #define SW_0_BIT 0
 
-#define RCC_AHB1ENR_OFFSET 0x30
-#define GPIO_EN_BIT(port) (port)
+#define RCC_APB2ENR_OFFSET 0x44
+#define SYSCFG_EN_BIT 14
+
+
+//EXTI
+#define EXTI_BASE 0x40013C00
+
+#define EXTI_IMR_OFFSET 0x00
+
+#define EXTI_RTSR_OFFSET 0x08
+
+#define EXTI_FTSR_OFFSET 0x0C
+
+#define EXTI_PR_OFFSET 0x14
+
+//SYSCFG
+#define SYSCFG_BASE 0x40013800   //p66
+
+#define SYSCFG_EXTICR1_OFFSET 0x08
+
+#define EXTI0_3_BIT 3
+#define EXTI0_0_BIT 0
+
+//NVIC
+#define NVIC_ISER_BASE 0xE000E100
+
+#define NVIC_ISERn_OFFSET(n) (0x00 + 4 * (n))
+
 
 
 typedef struct SYSCLK SYSCLKtype;
-typedef void (*SYSCLKfunc)(SYSCLKtype *self);
+typedef struct (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
-	int clksrc , freq ;
-	SYSCLKfunc SYSCLK_config;
-};
-void _init_SYSCLK(GPIOtype **self);
+	char clksrc;
+    int freq;
 
-void SYSCLK_config(GPIOtype *self);//method
+    SYSCLKfunc SYSCLK_config;
+
+}
+
+int _init_SYSCLK(SYSCLKtype **self);
+
+void SYSCLK_config_imp(SYSCLKtype *self);
 
 
 
+
+
+
+#endif
