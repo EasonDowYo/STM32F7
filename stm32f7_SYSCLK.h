@@ -17,12 +17,16 @@
 //RCC
 #define RCC_BASE 0x40023800
 
-#define RCC_CR_OFFSET 0x00
 
+//RCC_CR
+#define RCC_CR_OFFSET 0x00
 #define PLLRDY_BIT 25
 #define PLLON_BIT 24
 #define HSERDY_BIT 17
 #define HSEON_BIT 16
+#define HSIRDY_BIT 1
+#define HSION_BIT 0
+
 
 #define RCC_PLLCFGR_OFFSET 0x04
 
@@ -84,7 +88,7 @@ typedef struct SYSCLK SYSCLKtype;
 typedef struct (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
-	char clksrc;
+	char clksrc[];
     int freq;
 
     SYSCLKfunc SYSCLK_config;
