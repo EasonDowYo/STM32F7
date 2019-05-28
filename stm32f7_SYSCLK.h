@@ -88,7 +88,7 @@ typedef struct SYSCLK SYSCLKtype;
 typedef struct (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
-	char clksrc[];
+	char *clksrc;
     int freq;
 
     SYSCLKfunc SYSCLK_config;
