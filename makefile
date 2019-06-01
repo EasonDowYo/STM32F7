@@ -1,6 +1,6 @@
 CROSS-COMPILER = arm-none-eabi-
 CFGR = gcc -std=c11 -Wall -mcpu=cortex-m7 -mthumb -nostartfiles
-FILES = main.c blink.c startup.c vector_table.s stm32f7_GPIO.c
+FILES = main.c startup.c vector_table.s stm32f7_GPIO.c stm32f7_SYSCLK.c
 all: main.bin
 
 main.bin: $(FILES)
@@ -11,4 +11,4 @@ flash:
 	st-flash --reset write main.bin 0x08000000
 
 clean:
-	rm -f *.o *.elf *.bin
+	m -f *.o *.elf *.bin

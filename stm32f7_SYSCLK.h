@@ -85,17 +85,17 @@
 
 
 typedef struct SYSCLK SYSCLKtype;
-typedef struct (*SYSCLKfunc)(SYSCLKtype *self);
+typedef void (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
 	char *clksrc;
-    int freq;
+	int freq;
 
-    SYSCLKfunc SYSCLK_config;
+	SYSCLKfunc SYSCLK_config;
 
-}
+};
 
-int _init_SYSCLK(SYSCLKtype **self);
+int init_sysclk(SYSCLKtype **self);
 
 void SYSCLK_config_imp(SYSCLKtype *self);
 

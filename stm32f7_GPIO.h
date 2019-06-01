@@ -1,7 +1,7 @@
 #ifndef GPIO_H
 #define GPIO_H
 
-#define NULL ((void *)0)
+
 
 
 // GPIO moder
@@ -52,7 +52,7 @@
 
 #define GPIO_BASE(port) (0x40020000 + 0x400 * (port))
 
-////////////////////////////////////////////////
+/* ======= GPIO register start =======*/
 #define GPIOx_MODER_OFFSET 0x00
 #define MODERy_1_BIT(y) ((y)*2 + 1)
 #define MODERy_0_BIT(y) ((y)*2)
@@ -74,7 +74,15 @@
 
 #define GPIOx_IDR_OFFSET 0x10
 #define IDRy_BIT(y) (y)
-///////////////////////////////////////////////
+
+#define GPIOx_AFRL_OFFSET 0x20
+#define AFRLy_3_BIT(y) ((y)*4 + 3)
+#define AFRLy_0_BIT(y) ((y)*4)
+
+/* ======= GPIO register end =======*/
+
+
+/*======== GPIO function ========*/
 typedef struct GPIO GPIOtype;
 typedef void (*GPIOfunc)(GPIOtype *self);
 typedef int (*GPIOvalue)(GPIOtype *self);

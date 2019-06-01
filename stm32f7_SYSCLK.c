@@ -1,8 +1,8 @@
 #include "stm32f7_SYSCLK.h"
 #include "reg.h"
-
-
-int _init_SYSCLK(SYSCLKtype **self){
+#include <stdint.h>
+#include "malloc.h"
+int init_sysclk(SYSCLKtype **self){
 	if ( NULL == (*self=malloc(sizeof(SYSCLKtype)))) return -1;
 
     (*self)->clksrc="PLL";
@@ -16,9 +16,9 @@ int _init_SYSCLK(SYSCLKtype **self){
 
 void SYSCLK_config_imp(SYSCLKtype *self){
 	
-    int SRC=0;
+    int WS,SRC=0;
 	char *src1="HSI";//16M
-    char *src2="HSE";//25M
+    char *src2="HSE";//24M
     char *src3="PLL";
     
     
@@ -108,9 +108,9 @@ void SYSCLK_config_imp(SYSCLKtype *self){
 	    	//enable flash prefetch buffer
 	    	SET_BIT(FLASH_BASE + FLASH_ACR_OFFSET, PRFTEN_BIT);
 	        if( self->freq==216 ){
-                int WS=7;
+                WS=7;
             }else if( self->freq==128 ){
-                int WS=4;
+                WS=4;
             }
                 
 	    	//set flash wait state = 7
@@ -123,7 +123,7 @@ void SYSCLK_config_imp(SYSCLKtype *self){
 	    	while ( (READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_1_BIT) != 1)&&(READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_0_BIT) != 0) )
 	    		;
 
-            break;
+            break;//break PLL case
     }//end switch SRC
 
 	

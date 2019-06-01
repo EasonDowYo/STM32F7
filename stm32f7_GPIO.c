@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "malloc.h"
 #include "stm32f7_GPIO.h"
 #include "reg.h"
 /*
