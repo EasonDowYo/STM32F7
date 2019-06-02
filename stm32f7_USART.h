@@ -41,8 +41,11 @@ typedef int (*USARTvalue)(USARTtype *self);
 struct USART{
 	int number,baud;
 	
-	USARTfunc init_usart;
+	USARTvalue usart_config;
 };
+
+int init_usart(USARTtype **self);
+int usart_config_imp(USARTtype *self);
 
 
 
