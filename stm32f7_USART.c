@@ -3,7 +3,7 @@
 
 #include "stm32f7_GPIO.h"
 
-
+#include "stm32f7_USART.h"
 
 
 
@@ -23,6 +23,7 @@ int usart_config_imp(USARTtype *self){
     
     if (self->number!=6 || self->number!=7){return -1}
     if (self->number==6){
+
     	//usart6  port c;pin 6,7
 		GPIOtype *TX6=NULL;
         init_GPIO(&TX6);
@@ -51,57 +52,57 @@ int usart_config_imp(USARTtype *self){
     	const uint32_t DIV_FRACTION = (uint32_t) ((USARTDIV-DIV_MANTISSA)*16);
     
     	//USART  Configurations
-    	SET_BIT(USART1_BASE + USART_CR1_OFFSET , UE_BIT );
+    	SET_BIT(USART6_BASE + USART_CR1_OFFSET , UE_BIT );
     
-        SET_BIT(USART1_BASE + USART_CR1_OFFSET, RXNEIE_BIT );
-    	//enable NVIC  IRQ71  IRQ37 => (m+(32*n))  m=5,n=1
-        SET_BIT(NVIC_ISER_BASE+NVIC_ISERn_OFFSET(1),5);
+        SET_BIT(USART6_BASE + USART_CR1_OFFSET, RXNEIE_BIT );
+    	//enable NVIC  IRQ71  m=7n=2               IRQ37 => (m+(32*n))  m=5,n=1
+        SET_BIT(NVIC_ISER_BASE+NVIC_ISERn_OFFSET(2),7);
     
-    	WRITE_BITS(USART1_BASE + USART_BRR_OFFSET, DIV_MANTISSA_11_BIT , DIV_MANTISSA_0_BIT , DIV_MANTISSA);
-        WRITE_BITS(USART1_BASE + USART_BRR_OFFSET, DIV_FRACTION_3_BIT , DIV_FRACTION_0_BIT , DIV_FRACTION);
+    	WRITE_BITS(USART6_BASE + USART_BRR_OFFSET, DIV_MANTISSA_11_BIT , DIV_MANTISSA_0_BIT , DIV_MANTISSA);
+        WRITE_BITS(USART6_BASE + USART_BRR_OFFSET, DIV_FRACTION_3_BIT , DIV_FRACTION_0_BIT , DIV_FRACTION);
     
-	    SET_BIT(USART1_BASE + USART_CR1_OFFSET,TE_BIT);
-	    SET_BIT(USART1_BASE + USART_CR1_OFFSET,RE_BIT);
+	    SET_BIT(USART6_BASE + USART_CR1_OFFSET,TE_BIT);
+	    SET_BIT(USART6_BASE + USART_CR1_OFFSET,RE_BIT);
     }
 
 }
 
-void usart1_send_char(const char ch)
+void usart6_send_char(const char ch)
 {
-	while( !READ_BIT( USART1_BASE+USART_SR_OFFSET , TXE_BIT) )
+	while( !READ_BIT( USART6_BASE+USART_SR_OFFSET , TXE_BIT) )
         ;
-    REG(USART1_BASE+USART_DR_OFFSET)=ch; 
+    REG(USART6_BASE+USART_DR_OFFSET)=ch; 
 }
 
-char usart1_receive_char(void)
+char usart6_receive_char(void)
 {
-	while( !READ_BIT( USART1_BASE+USART_SR_OFFSET , RXNE_BIT) )
+	while( !READ_BIT( USART6_BASE+USART_SR_OFFSET , RXNE_BIT) )
         ;
-	return (char)REG(USART1_BASE+USART_DR_OFFSET); 
+	return (char)REG(USART6_BASE+USART_DR_OFFSET); 
 }
 
-void usart1_handler(void){
+void usart6_handler(void){
 
 
-    if (READ_BIT(USART1_BASE + USART_SR_OFFSET , RXNE_BIT)){
+    if (READ_BIT(USART6_BASE + USART_SR_OFFSET , RXNE_BIT)){
 		char ch;
-		ch = usart1_receive_char();
+		ch = usart6_receive_char();
 
 		if (ch == '\r')
-			usart1_send_char('\n');
+			usart6_send_char('\n');
 
-		usart1_send_char(ch);
+		usart6_send_char(ch);
 
     	blink_count(LED_RED,1);
     }
-	if (READ_BIT(USART1_BASE + USART_SR_OFFSET , ORE_BIT)){
+	if (READ_BIT(USART6_BASE + USART_SR_OFFSET , ORE_BIT)){
         char *ch="ORE error\r\n";
 		while (*ch != '\0')
-			usart1_send_char(*ch++);
-	    REG(USART1_BASE+USART_DR_OFFSET);
+			usart6_send_char(*ch++);
+	    REG(USART6_BASE+USART_DR_OFFSET);
 
 
 
-    }
+
 }
 

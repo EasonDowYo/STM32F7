@@ -98,11 +98,14 @@ void blink_ct_imp(GPIOtype *self){
 }
 
 void blink_imp(GPIOtype *self){
-	while(1){
+    int ii=0;
+	while(ii<10){
 	    SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
 	    for(int i=0;i<100000;i++);
         SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
 	    for(int i=0;i<100000;i++);
+        
+        ii++;
     }
 }//end blink_imp
 

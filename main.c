@@ -5,13 +5,19 @@
 
 int main(void)
 {
+    SYSCLKtype *clock=NULL;
+	init_sysclk(&clock);
+    clock->SYSCLK_config(clock);
+
+
+
 	GPIOtype *PI1=NULL;
     init_GPIO(&PI1);  // OUTPUT medium
     PI1->port=GPIO_PORTI;
     PI1->pin=1;
     PI1->mode=OUTPUT;
 	PI1->IO_config(PI1);
-
+	PI1->blink(PI1);
 
 
 

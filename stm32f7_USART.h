@@ -3,7 +3,9 @@
 
 
 //USART1
-#define USART1_BASE 0x40011000
+
+#define USART6_BASE 0x40011400
+#define UART7_BASE 0x40007800
 
 #define USART_SR_OFFSET 0x00
 #define TXE_BIT 7
