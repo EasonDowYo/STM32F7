@@ -79,7 +79,9 @@ void IO_config_imp(GPIOtype *self){
     		SET_BIT(GPIO_BASE(self->port) + GPIOx_PUPDR_OFFSET, PUPDRy_0_BIT(self->pin));
 		break;
     }//end pupd case
+
 }// end IO_config 
+
 
 void GPIO_onoff_imp(GPIOtype *self){
     if(self->onoff==1)//set GPIO pin
@@ -88,33 +90,37 @@ void GPIO_onoff_imp(GPIOtype *self){
 		SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BRy_BIT(self->pin));
 }//end GPIO_onoff
 
+
 void blink_ct_imp(GPIOtype *self){
 	for(int ct=10;ct>0;ct--){
 	    SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
-	    for(int i=0;i<100000;i++);
-        SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
-	    for(int i=0;i<100000;i++);
+	    for(int i=0;i<100000;i++)
+            ;
+        SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BRy_BIT(self->pin));
+	    for(int i=0;i<100000;i++)
+            ;
     }
 }
 
+
 void blink_imp(GPIOtype *self){
-    int ii=0;
-	while(ii<10){
+	while(1){
 	    SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
 	    for(int i=0;i<100000;i++);
-        SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BSy_BIT(self->pin));
+        SET_BIT(GPIO_BASE(self->port) + GPIOx_BSRR_OFFSET, BRy_BIT(self->pin));
 	    for(int i=0;i<100000;i++);
         
-        ii++;
     }
 }//end blink_imp
+
 
 int DRead_imp(GPIOtype *self){
 	return READ_BIT(GPIO_BASE(self->port) + GPIOx_IDR_OFFSET , self->pin);
 }//end DRead_imp
 
 
-int init_GPIO(GPIOtype **self){
+
+int init_gpio(GPIOtype **self){
 	if ( NULL == (*self=malloc(sizeof(GPIOtype)))) return -1;
     (*self)->port= GPIO_PORTD;
     (*self)->pin=TEST_LED;

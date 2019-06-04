@@ -5,7 +5,7 @@
 
 #include "stm32f7_USART.h"
 
-
+#include "malloc.h"
 
 
 
@@ -16,26 +16,31 @@ int init_usart(USARTtype **self)
     (*self)->baud=115200;
 	
     (*self)->usart_config=usart_config_imp;
+
+    return 0;
 }
 
 int usart_config_imp(USARTtype *self){
 	
     
-    if (self->number!=6 || self->number!=7){return -1}
+    if (self->number!=6 || self->number!=7){return -1;}
     if (self->number==6){
 
     	//usart6  port c;pin 6,7
 		GPIOtype *TX6=NULL;
-        init_GPIO(&TX6);
-    	TX6->port = GPIO_PORTC
+        init_gpio(&TX6);
+    	TX6->port = GPIO_PORTC;
         TX6->pin = 6;
         TX6->mode = AF;
-    
+	    TX6->IO_config(TX6);
+
     	GPIOtype *RX6=NULL;
-        init_GPIO(&RX6);
-    	RX6->port = GPIO_PORTC
+        init_gpio(&RX6);
+    	RX6->port = GPIO_PORTC;
         RX6->pin = 7;
         RX6->mode = AF;
+	    RX6->IO_config(RX6);
+
         //GPIO
         WRITE_BITS(GPIO_BASE(GPIO_PORTC) +GPIOx_AFRL_OFFSET , AFRLy_3_BIT(6) ,AFRLy_0_BIT(6) ,8);
     	WRITE_BITS(GPIO_BASE(GPIO_PORTC) +GPIOx_AFRL_OFFSET , AFRLy_3_BIT(7) ,AFRLy_0_BIT(7) ,8);
@@ -64,8 +69,9 @@ int usart_config_imp(USARTtype *self){
 	    SET_BIT(USART6_BASE + USART_CR1_OFFSET,TE_BIT);
 	    SET_BIT(USART6_BASE + USART_CR1_OFFSET,RE_BIT);
     }
+	return 0;
+}// end usart config imp
 
-}
 
 void usart6_send_char(const char ch)
 {
@@ -74,6 +80,7 @@ void usart6_send_char(const char ch)
     REG(USART6_BASE+USART_DR_OFFSET)=ch; 
 }
 
+
 char usart6_receive_char(void)
 {
 	while( !READ_BIT( USART6_BASE+USART_SR_OFFSET , RXNE_BIT) )
@@ -81,6 +88,32 @@ char usart6_receive_char(void)
 	return (char)REG(USART6_BASE+USART_DR_OFFSET); 
 }
 
+
+void usart6_handler(void){
+	if( READ_BIT(USART6_BASE+USART_SR_OFFSET , ORE_BIT)==1){
+    	char DR_handle=(char)REG(USART6_BASE + USART_DR_OFFSET);
+        char *str = "Overrun error \r\n";
+        while(*str!='\0')
+            usart6_send_char(*str++);
+
+    
+    }else{
+    	char ch , DR_handle;
+        ch = usart6_receive_char();
+        	if(ch=='\r')
+                usart6_send_char('\n');
+            usart6_send_char(ch);
+    
+    
+    }
+}
+
+
+
+
+
+
+/*
 void usart6_handler(void){
 
 
@@ -105,4 +138,4 @@ void usart6_handler(void){
 
 
 }
-
+*/

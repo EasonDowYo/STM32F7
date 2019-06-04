@@ -92,7 +92,7 @@ struct GPIO{
 	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;
     GPIOvalue DRead;
 };
-int init_GPIO(GPIOtype **self);
+int init_gpio(GPIOtype **self);
 
 void IO_config_imp(GPIOtype *self);//method
 

@@ -36,10 +36,12 @@
 #define USART1EN 4
 
 
-
 typedef struct USART USARTtype;
+
 typedef void (*USARTfunc)(USARTtype *self);
+
 typedef int (*USARTvalue)(USARTtype *self);
+
 struct USART{
 	int number,baud;
 	
@@ -47,9 +49,12 @@ struct USART{
 };
 
 int init_usart(USARTtype **self);
+
 int usart_config_imp(USARTtype *self);
 
+void usart6_send_char(const char ch);
 
+char usart6_receive_char(void);
 
 
 #endif

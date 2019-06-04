@@ -2,6 +2,10 @@
 #include "reg.h"
 #include "stm32f7_GPIO.h"
 #include "stm32f7_SYSCLK.h"
+#include "stm32f7_USART.h"
+
+
+
 
 int main(void)
 {
@@ -12,17 +16,23 @@ int main(void)
 
 
 	GPIOtype *PI1=NULL;
-    init_GPIO(&PI1);  // OUTPUT medium
+	init_gpio(&PI1);  // OUTPUT medium
     PI1->port=GPIO_PORTI;
     PI1->pin=1;
     PI1->mode=OUTPUT;
 	PI1->IO_config(PI1);
-	PI1->blink(PI1);
+	PI1->blink_ct(PI1);
 
 
+    USARTtype *usart6=NULL;
+	init_usart(&usart6);
+    usart6->usart_config(usart6);
 
     
 }
+
+
+
 /*
 void exti0_handler(void)
 {
