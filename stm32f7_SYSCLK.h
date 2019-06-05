@@ -1,7 +1,9 @@
 #ifndef SYSCLK_H
 #define SYSCLK_H
 
-
+#define HSI 1
+#define HSE 2
+#define PLL 3
 
 
 
@@ -88,7 +90,7 @@ typedef struct SYSCLK SYSCLKtype;
 typedef void (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
-	char *clksrc;
+	int clksrc;
 	int freq;
 
 	SYSCLKfunc SYSCLK_config;

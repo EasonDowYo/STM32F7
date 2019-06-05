@@ -87,8 +87,8 @@ typedef struct GPIO GPIOtype;
 typedef void (*GPIOfunc)(GPIOtype *self);
 typedef int (*GPIOvalue)(GPIOtype *self);
 struct GPIO{
-	uint32_t port , pin , onoff;
-    uint32_t mode , otyper , ospeed , pupd;
+	int port , pin , onoff;
+    int mode , otyper , ospeed , pupd;
 	GPIOfunc IO_config,GPIO_onoff,blink_ct,blink;
     GPIOvalue DRead;
 };

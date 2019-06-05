@@ -50,7 +50,7 @@ int usart_config_imp(USARTtype *self){
 
 	    //Baud
 	    const unsigned int BAUD = self->baud;
-    	const unsigned int SYSCLK_MHZ = 216;
+    	const unsigned int SYSCLK_MHZ = 16;
     	const double USARTDIV = SYSCLK_MHZ * 1.0e6 / 16 / BAUD;
     
     	const uint32_t DIV_MANTISSA = (uint32_t) USARTDIV;
