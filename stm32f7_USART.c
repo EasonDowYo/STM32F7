@@ -7,7 +7,7 @@
 
 #include "malloc.h"
 
-
+extern int system_clock;
 
 int init_usart(USARTtype **self)
 {
@@ -50,8 +50,8 @@ int usart_config_imp(USARTtype *self){
 
 	    //Baud
 	    const unsigned int BAUD = self->baud;
-    	const unsigned int SYSCLK_MHZ = 16;
-    	const double USARTDIV = SYSCLK_MHZ * 1.0e6 / 16 / BAUD;
+    	
+        const double USARTDIV = system_clock * 1.0e6 / 16 / BAUD;
     
     	const uint32_t DIV_MANTISSA = (uint32_t) USARTDIV;
     	const uint32_t DIV_FRACTION = (uint32_t) ((USARTDIV-DIV_MANTISSA)*16);
@@ -75,23 +75,23 @@ int usart_config_imp(USARTtype *self){
 
 void usart6_send_char(const char ch)
 {
-	while( !READ_BIT( USART6_BASE+USART_SR_OFFSET , TXE_BIT) )
+	while( !READ_BIT( USART6_BASE+USART_ISR_OFFSET , TXE_BIT) )
         ;
-    REG(USART6_BASE+USART_DR_OFFSET)=ch; 
+    REG(USART6_BASE+USART_TDR_OFFSET)=ch; 
 }
 
 
 char usart6_receive_char(void)
 {
-	while( !READ_BIT( USART6_BASE+USART_SR_OFFSET , RXNE_BIT) )
+	while( !READ_BIT( USART6_BASE+USART_ISR_OFFSET , RXNE_BIT) )
         ;
-	return (char)REG(USART6_BASE+USART_DR_OFFSET); 
+	return (char)REG(USART6_BASE+USART_RDR_OFFSET); 
 }
 
 
 void usart6_handler(void){
-	if( READ_BIT(USART6_BASE+USART_SR_OFFSET , ORE_BIT)==1){
-    	char DR_handle=(char)REG(USART6_BASE + USART_DR_OFFSET);
+	if( READ_BIT(USART6_BASE+USART_ISR_OFFSET , ORE_BIT)==1){
+    	char DR_handle=(char)REG(USART6_BASE + USART_RDR_OFFSET);
         char *str = "Overrun error \r\n";
         while(*str!='\0')
             usart6_send_char(*str++);

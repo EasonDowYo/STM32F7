@@ -7,12 +7,15 @@
 #define USART6_BASE 0x40011400
 #define UART7_BASE 0x40007800
 
-#define USART_SR_OFFSET 0x00
-#define TXE_BIT 7
-#define RXNE_BIT 5
-#define ORE_BIT 3
 
-#define USART_DR_OFFSET 0x04
+
+#define USART_ISR_OFFSET 0x1c
+#define TXE_BIT 7  //
+#define RXNE_BIT 5  //
+#define ORE_BIT 3  //
+
+#define USART_RDR_OFFSET 0x24
+#define USART_TDR_OFFSET 0x28
 
 #define USART_BRR_OFFSET 0x08
 #define DIV_MANTISSA_11_BIT 15
@@ -20,11 +23,12 @@
 #define DIV_FRACTION_3_BIT 3
 #define DIV_FRACTION_0_BIT 0
 
-#define USART_CR1_OFFSET 0x0C
-#define UE_BIT 13
-#define RXNEIE_BIT 5
-#define TE_BIT 3
-#define RE_BIT 2
+
+#define USART_CR1_OFFSET 0x00
+#define UE_BIT 0    //
+#define RXNEIE_BIT 5   //
+#define TE_BIT 3   //
+#define RE_BIT 2  //
 
 #define RCC_BASE 0x40023800
 

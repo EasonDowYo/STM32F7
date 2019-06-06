@@ -1,13 +1,15 @@
 #include "stm32f7_SYSCLK.h"
-#include "stm32f7_GPIO.h"
 #include "reg.h"
 #include <stdint.h>
 #include "malloc.h"
+
 int init_sysclk(SYSCLKtype **self){
 	if ( NULL == (*self=malloc(sizeof(SYSCLKtype)))) return -1;
 
 	(*self)->clksrc=PLL;
-	(*self)->freq=168;
+	(*self)->pll_n=432;
+    (*self)->pll_m=25;
+    (*self)->pll_p=2;
 	//method
 	(*self)->SYSCLK_config=SYSCLK_config_imp;
     
@@ -54,7 +56,7 @@ void SYSCLK_config_imp(SYSCLKtype *self){
             break;
         }
     }*/
-
+	int system_clock;
     switch(self->clksrc){
         case HSI://HSI
 		    SET_BIT(RCC_BASE + RCC_CR_OFFSET, HSION_BIT);
@@ -67,7 +69,7 @@ void SYSCLK_config_imp(SYSCLKtype *self){
 	    	//wait SWS
 	    	while ( (READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_1_BIT) != 0)&&(READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_0_BIT) != 0) )
 	    		;
-
+		system_clock=16;
             break;
         case HSE://HSE
 	        SET_BIT(RCC_BASE + RCC_CR_OFFSET, HSEON_BIT);
@@ -80,49 +82,73 @@ void SYSCLK_config_imp(SYSCLKtype *self){
 	    	//wait SWS
 	    	while ( (READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_1_BIT) != 0)&&(READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_0_BIT) != 1) )
 	    		;
-
+		system_clock=25;
             break;
         case PLL://PLL
 		
 	        //enable clock source
-	        SET_BIT(RCC_BASE + RCC_CR_OFFSET, HSION_BIT);
+	        SET_BIT(RCC_BASE + RCC_CR_OFFSET, HSEON_BIT);
 	        //wait until clock source is stable
-	        while ( READ_BIT(RCC_BASE + RCC_CR_OFFSET, HSIRDY_BIT) != 1)
+	        while ( READ_BIT(RCC_BASE + RCC_CR_OFFSET, HSERDY_BIT) != 1)
 			        ;//check
+		SET_BIT(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLSRC_BIT);//use HSE for PLL source
 
+		if(self->pll_n<2) self->pll_n=2;
+		if(self->pll_n>432) self->pll_n=432;
+		if(self->pll_m<2) self->pll_m=2;
+		if(self->pll_m>63) self->pll_m=63;
 
+		switch(self->pll_p){ //set P  00->2 ,01->4 ,10->6 ,11->8
+                case 2: 
+                    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLP_1_BIT, PLLP_0_BIT, 0b00 );
+                    break;
+                case 4:
+                    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLP_1_BIT, PLLP_0_BIT, 0b01 );
+                    break;
+                case 6: 
+                    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLP_1_BIT, PLLP_0_BIT, 0b10 );
+                    break;
+                case 8:
+                    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLP_1_BIT, PLLP_0_BIT, 0b11 );
+                    break;
+		}//end switch pll_p
 
-	        CLEAR_BIT(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLSRC_BIT);//use HSI for PLL source
-	        
-            //set P  00->2 ,01->4 ,10->6 ,11->8
-		    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLP_1_BIT, PLLP_0_BIT, 0b00);
-		    //set N  50~432
-    	    WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLN_8_BIT, PLLN_0_BIT, self->freq);
-            //set M  2~63
-	        WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLM_5_BIT, PLLM_0_BIT, 8);
-	        //f_HSI = 16 MHz
-	    	//N=216 M=8  ,   f_VCO = 16*216/8   , f_PLL_out = 2*216/2
+		//set N  50~432
+		WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLN_8_BIT, PLLN_0_BIT, self->pll_n );
+		//set M  2~63
+		WRITE_BITS(RCC_BASE + RCC_PLLCFGR_OFFSET, PLLM_5_BIT, PLLM_0_BIT, self->pll_m );
 
+	        //f_HSE = 16 MHz
+	    	//N=432 M=25  ,   f_VCO = 25*432/25   , f_PLL_out = 1*432/2
+            //
+
+		
+        system_clock=25* (( (self->pll_n)/(self->pll_m) ))/(self->pll_p);
 	    	//enable pll
 	    	SET_BIT(RCC_BASE + RCC_CR_OFFSET, PLLON_BIT);
 
 	     	//wait until PLL clock is ready.
 		    while (READ_BIT(RCC_BASE + RCC_CR_OFFSET, PLLRDY_BIT) != 1)
 	    		;//check
-
-
-
 	
 	    	//enable flash prefetch buffer
 	    	SET_BIT(FLASH_BASE + FLASH_ACR_OFFSET, PRFTEN_BIT);
-	        /*if( self->freq==216 ){
-                WS=7;
-            }else if( self->freq==168 ){
-                WS=5;
-            }*/
-                
-	    	//set flash wait state = 7
-	    	WRITE_BITS(FLASH_BASE + FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b101);
+
+
+		if (system_clock>30 && system_clock<=60)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b001);
+		if (system_clock>60 && system_clock<=90)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b010);
+		if (system_clock>90 && system_clock<=120)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b011);
+		if (system_clock>120 && system_clock<=150)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b100);
+		if (system_clock>150 && system_clock<=180)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b101);
+		if (system_clock>210 && system_clock<=216)
+			WRITE_BITS(FLASH_BASE+FLASH_ACR_OFFSET,LATENCY_2_BIT,LATENCY_0_BIT,0b111);
+
+
 
 	    	//use pll
 	    	WRITE_BITS(RCC_BASE + RCC_CFGR_OFFSET, SW_1_BIT, SW_0_BIT, 0b10);
@@ -130,13 +156,7 @@ void SYSCLK_config_imp(SYSCLKtype *self){
 	    	//wait
 	    	while ( (READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_1_BIT) != 1)&&(READ_BIT(RCC_BASE + RCC_CFGR_OFFSET, SWS_0_BIT) != 0) )
 	    		;
-		GPIOtype *PI1=NULL;
-		init_gpio(&PI1);  // OUTPUT medium
-		PI1->port=GPIO_PORTI;
-		PI1->pin=1;
-		PI1->mode=OUTPUT;
-		PI1->IO_config(PI1);
-		PI1->blink_ct(PI1);
+
             break;//break PLL case
     }//end switch SRC
 

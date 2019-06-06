@@ -44,14 +44,14 @@
 #define PLLM_0_BIT 0
 
 #define RCC_CFGR_OFFSET 0x08   //p165
-#define MCO2_1_BIT 31
-#define MCO2_0_BIT 30
+#define MCO2_1_BIT 31  //
+#define MCO2_0_BIT 30  //
 
-#define MCO2PRE_2_BIT 29
-#define MCO2PRE_0_BIT 27
+#define MCO2PRE_2_BIT 29  //
+#define MCO2PRE_0_BIT 27  //
 
-#define SWS_1_BIT 3
-#define SWS_0_BIT 2
+#define SWS_1_BIT 3  //
+#define SWS_0_BIT 2  //
 
 #define SW_1_BIT 1
 #define SW_0_BIT 0
@@ -91,7 +91,7 @@ typedef void (*SYSCLKfunc)(SYSCLKtype *self);
 
 struct SYSCLK{
 	int clksrc;
-	int freq;
+	int pll_n,pll_m,pll_p;
 
 	SYSCLKfunc SYSCLK_config;
 
