@@ -1,6 +1,6 @@
 CROSS-COMPILER = arm-none-eabi-
 CFGR = gcc -std=c11 -Wall -mcpu=cortex-m7 -mthumb -nostartfiles
-FILES = main.c startup.c vector_table.s malloc.c stm32f7_GPIO.c stm32f7_SYSCLK.c stm32f7_USART.c
+FILES = main.c startup.c vector_table.s malloc.c stm32f7_GPIO.c stm32f7_SYSCLK.c
 all: main.bin
 
 main.bin: $(FILES)
