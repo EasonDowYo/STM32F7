@@ -3,7 +3,7 @@
 #include "malloc.h"
 #include "stm32f7_GPIO.h"
 #include "stm32f7_SYSCLK.h"
-//#include "stm32f7_USART.h"
+#include "stm32f7_USART.h"
 
 
 
@@ -14,19 +14,24 @@ int main(void)
 	SYSCLKtype *clock=NULL;
 	init_sysclk(&clock);
 	clock->SYSCLK_config(clock);
+    
+    op_sysclk(4);
 
 	REG(SYST_RVR)=0xFFFFFFFF;
 	REG(SYST_CVR)=0x00000000;
 	REG(SYST_CSR)=0x00000007;
 
 
-	/*
+	
 	USARTtype *usart6=NULL;
 	init_usart(&usart6);
 	usart6->usart_config(usart6);
-	usart6_send_char('H');*/
-	while(1)
-        ;
+	usart6_send_char('H');
+	while(1){
+        usart6_send_char('H');
+        for(int i=0;i<=1000000;i++)
+            ;
+    }
     
 }
 

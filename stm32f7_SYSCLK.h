@@ -50,6 +50,13 @@
 #define MCO2PRE_2_BIT 29  //
 #define MCO2PRE_0_BIT 27  //
 
+#define MCO1_1_BIT 22
+#define MCO1_0_BIT 21 
+
+#define MCO1PRE_2_BIT 26   //100-> div 2 
+#define MCO1PRE_0_BIT 24
+
+
 #define SWS_1_BIT 3  //
 #define SWS_0_BIT 2  //
 
@@ -101,7 +108,7 @@ int init_sysclk(SYSCLKtype **self);
 
 void SYSCLK_config_imp(SYSCLKtype *self);
 
-
+void op_sysclk(unsigned int div);
 
 
 
